@@ -13,7 +13,14 @@
 |
 */
 
-$router->get('/products', 'ProductsController@index');
+$router->post('/login', 'AuthController@login');
+$router->post('/register', 'AuthController@register');
+$router->post('/logout', 'AuthController@logout');
+
+$router->get('/products', [
+    'middleware'=>'auth',
+    'uses'=>'ProductsController@index'
+]);
 $router->get('/products/{id}', 'ProductsController@show');
 $router->post('/products/create', 'ProductsController@store');
 $router->post('/products/update/{id}','ProductsController@update');
